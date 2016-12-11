@@ -1,0 +1,5 @@
+c:\Users\adminS\documents\visual studio 2015\Projects\Parser\Language\bin\Debug\Language.dll
+c:\Users\adminS\documents\visual studio 2015\Projects\Parser\Language\bin\Debug\Language.pdb
+c:\Users\adminS\documents\visual studio 2015\Projects\Parser\Language\obj\Debug\Language.csprojResolveAssemblyReference.cache
+c:\Users\adminS\documents\visual studio 2015\Projects\Parser\Language\obj\Debug\Language.dll
+c:\Users\adminS\documents\visual studio 2015\Projects\Parser\Language\obj\Debug\Language.pdb

@@ -1,0 +1,35 @@
+﻿<Window x:Class="Vision.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Vision"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1080" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontSize="20">
+    <Grid Margin="0,0,0,0">
+        <Grid Width="500" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Grid Height="55" VerticalAlignment="Top" Margin="70,20,70,0">
+                <Button Content="load" Name="LoadButton" Height="45" Width="110" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,130,0"/>
+                <Button Content="open" Name="OpenButton" Width="116" HorizontalAlignment="Left" Margin="-36,10,0,0"/>
+                <Button Content="restore" x:Name="RestoreButton" Height="45" Width="97" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,-12,0"/>
+            </Grid>
+            <Grid Margin="0,92,0,166">
+                <TextBox Name="FilePathBox" Height="30" FontSize="20" Margin="35,2,160,10" Text="FilePath"/>
+                <TextBox Name="StartSimbol" Height="30" FontSize="20" Margin="372,2,56,10"/>
+                <TextBox Name="LeftABC" Height="30" FontSize="20" Margin="35,61,291,-49"/>
+                <TextBox Name="RigthABC" Height="30" FontSize="20" Margin="270,61,56,-49"/>
+            </Grid>
+        </Grid>
+        <Grid Margin="36,204,864,21">
+            <RichTextBox Name="LeftRule"/>
+        </Grid>
+        <Grid Margin="269,157,631,21">
+            <RichTextBox Name="RightRule" Margin="0,46,0,0"/>
+        </Grid>
+        <Grid Width="570" Height="300" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button Name="CheckButton" Content="check" Margin="206,93,78,149"/>
+            <TextBox Name="StringBox" Height="30" FontSize="20" Margin="206,38,78,232"/>
+            <RichTextBox Name="AnsverBox" Margin="206,198,78,0"/>
+        </Grid>
+    </Grid>
+</Window>
