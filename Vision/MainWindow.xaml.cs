@@ -24,17 +24,20 @@ namespace Vision
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Представление языка в форме Хомского
         private ChomskyNormalForm language = new ChomskyNormalForm();
 
         public MainWindow()
         {
             InitializeComponent();
+            //Инициализация окна
             LoadButton.Click += ((sender, e) => Load(FilePathBox.Text));
             OpenButton.Click += ((sender, e) => OpenFile());
             RestoreButton.Click += ((sender, e) => RestoreLanguage());
             CheckButton.Click += ((sender, e) => Check());
         }
-
+        //Открытие файла
+        //Считываем только путь к файлу
         private void OpenFile()
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -43,32 +46,39 @@ namespace Vision
                 FilePathBox.Text = dialog.FileName;
             }
         }
-
+        //Загрузка языка из файла
         private void Load(string filepath)
         {
             Factory factory = new Factory(filepath);
+            //Пытаемся прочитать из файла, если чего-то сломалось, то выводим ошибку на экран
             try
             {
+                //Фабрикуем из файла язык
                 language = factory.GetLanguage();
 
+                //Нетерминальный алфавит
                 string rightABS = "";
                 foreach (string a in language.TerminalChars)
                 {
                     rightABS += a + ", ";
                 }
-                RigthABC.Text = new string(rightABS.Take(rightABS.Length - 2).ToArray()); ;
+                RigthABC.Text = new string(rightABS.Take(rightABS.Length - 2).ToArray()); 
+                //Терминальные алфавит
                 string leftABC = "";
                 foreach (string a in language.NonTerminalChars)
                 {
                     leftABC += a + ", ";
                 }
                 LeftABC.Text = new string(leftABC.Take(leftABC.Length - 2).ToArray());
+                //Начальный нетерминал
                 StartSimbol.Text = language.Start;
+                //Нетерминальные правила
                 LeftRule.Document.Blocks.Clear();
                 foreach (FirstRule rule in language.NonEndRules)
                 {
                     LeftRule.Document.Blocks.Add(new Paragraph(new Run(rule.Left + " -> " + rule.RightOne + ", " + rule.RightTwo)));
                 }
+                //Терминальные правила
                 RightRule.Document.Blocks.Clear();
                 foreach (SecondRule rule in language.EndRules)
                 {
@@ -80,24 +90,25 @@ namespace Vision
                 System.Windows.MessageBox.Show(e.Message);
             }
         }
-
+        //Обновить язык
         private void RestoreLanguage()
         {
-            string filename = Environment.CurrentDirectory + "/1.txt";
-            StreamWriter writer = new StreamWriter(filename, false);
-            writer.WriteLine(RigthABC.Text);
-            writer.WriteLine(LeftABC.Text);
-            writer.WriteLine(StartSimbol.Text);
-            writer.WriteLine(new TextRange(LeftRule.Document.ContentStart, LeftRule.Document.ContentEnd).Text);
-            writer.Write(new TextRange(RightRule.Document.ContentStart, RightRule.Document.ContentEnd).Text);
-            writer.Close();
-            Load(filename);
+            //Записываем в временный файл все данные в нужном формате, потом загружаем их же из него
+            StringBuilder str = new StringBuilder();
+            str.Append(RigthABC.Text + "\r\n");
+            str.Append(LeftABC.Text + "\r\n");
+            str.Append(StartSimbol.Text + "\r\n");
+            str.Append(new TextRange(LeftRule.Document.ContentStart, LeftRule.Document.ContentEnd).Text + "\r\n");
+            str.Append(new TextRange(RightRule.Document.ContentStart, RightRule.Document.ContentEnd).Text + "\r\n");
+            language = Factory.FromString(str.ToString());
         }
-
+        //Запуск парсера
         private void Check()
         {
             CYKParser parser = new CYKParser();
-            System.Windows.MessageBox.Show(parser.Check(StringBox.Text.Split(new char[] { ' ', ','}, StringSplitOptions.RemoveEmptyEntries).ToArray(), language));
+            //Слово для проверки
+            var word = StringBox.Text.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+            System.Windows.MessageBox.Show(parser.Check(word, language));
         }
     }
 }

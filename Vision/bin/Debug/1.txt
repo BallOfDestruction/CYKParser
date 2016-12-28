@@ -1,6 +1,32 @@
+i, m, l, r, u, i, v
+S, E, K, Svk, Eer, Eek, Eler, Elr, K, M, L, R, V, I
+E
+S -> E, Svk
+S -> E, V
+S -> V, K
+E -> M, E
+E -> L, Eer
+E -> M, Eek
+E -> L, R
+E -> M, K
+E -> I, Eler
+E -> I, Elr
+K -> I, Eler
+K -> I, Elr
+Svk -> V, K
+Eer -> E, R
+Eek -> E, K
+Eler -> L, Eer
+Elr -> L, R
+K -> I, Eler
+K -> I, Elr
 
-
-
-
-
-
+E->m
+E->i
+K->i
+K->i
+M->m
+L->l
+R->r
+V->v
+I->i

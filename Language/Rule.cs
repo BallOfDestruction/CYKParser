@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Language
 {
+    //Правила формы Хомского
     public class Rule
     {
         public readonly string Left;
@@ -16,7 +17,9 @@ namespace Language
             this.Left = left;
         }
     }
-
+    /// <summary>
+    /// Правила "из нетерминала в два нетернинала"
+    /// </summary>
     public class FirstRule : Rule
     {
         public readonly string RightOne;
@@ -28,7 +31,9 @@ namespace Language
             this.RightTwo = rightTwo;
         }
     }
-
+    /// <summary>
+    /// Правила "из нетерминала в терминал"
+    /// </summary>
     public class SecondRule : Rule
     {
         public readonly string Right;

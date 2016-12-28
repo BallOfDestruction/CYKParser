@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Language;
 
 namespace Parser
@@ -15,10 +11,13 @@ namespace Parser
 
         public string Check(string[] word, ChomskyNormalForm language)
         {
+            //инициализируем
             this.language = language;
             this.word = word;
             int length = word.Length;
             matrix = new List<string>[length][];
+
+            //Инициализация матрицу как нижнеугловую
             for (int i = 0; i < length; i++)
             {
                 matrix[length - i - 1] = new List<string>[i+1];
@@ -27,18 +26,22 @@ namespace Parser
                     matrix[length - i - 1][j] = new List<string>();
                 }
             }
+
+            //Загружаем нижнию часть 
             LoadBottom();
+
+            //Повышаем матрицу вверх
             for (int i = 1; i < word.Length; i++)
-            {
                 Up(i);
-            }
+
+            //Если вверху матрицы есть стартовый нетерминальный символ
             if (matrix[0][word.Length - 1].Contains(language.Start))
-            {
                 return "OK";
-            }
-            return "NOT OK";
+            else
+                return "NOT OK";
         }
 
+        //Прогружаем нижную строчку
         private void LoadBottom()
         {
             for (int i = 0; i < word.Length; i++)
@@ -53,6 +56,7 @@ namespace Parser
             }
         }
 
+        //Прогружаем все остальное по глубине входа( колличеству символов, для которых подбираем переборы)
         private void Up(int depth)
         {
             for (int i = 0; i < word.Length-depth; i++)
@@ -80,7 +84,7 @@ namespace Parser
                 matrix[i][depth].AddRange(combo);
             }
         }
-
+        //Ищет список всех нужных неконечных правил
         private List<string> SearchFirst(string left, string right)
         {
             List<string> terms = new List<string>();

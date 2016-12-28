@@ -15,35 +15,42 @@ namespace Language
         {
             this.fileName = fileName;
         }
-
+        /// <summary>
+        /// Получаем грамматику в нормальной форме Хомского
+        /// </summary>
         public ChomskyNormalForm GetLanguage()
         {
-            ChomskyNormalForm language = new ChomskyNormalForm();
             string fileText = File.ReadAllText(fileName);
-            var fileData = fileText.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+            return FromString(fileText);
+        }
+
+        public static ChomskyNormalForm FromString(string dataFile)
+        {
+            ChomskyNormalForm language = new ChomskyNormalForm();
+            //Разделяем построчно
+            var fileData = dataFile.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+            //Разделяем в список терминальных символов
             language.TerminalChars = fileData[0].Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            //Разделяем в список нетерминальных символов
             language.NonTerminalChars = fileData[1].Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
+            //Проверка на пересечение алфавитов
             foreach (string terminal in language.TerminalChars)
-            {
                 foreach (string nonTerminal in language.NonTerminalChars)
-                {
                     if (nonTerminal.Equals(terminal))
-                    {
                         throw new Exception("Alphabets is intersect: " + terminal);
-                    }
-                }
-            }
 
+            //Проверка валидности стартового нетерминала
             if (language.NonTerminalChars.Contains(fileData[2]))
-            {
                 language.Start = fileData[2];
-            }
             else
-            {
                 throw new Exception("Not valid format language: start simbol is not non-terminal");
-            }
+
+            //Пропускаем первые три строки
             fileData = fileData.Skip(3).ToArray();
+            //Считываем правила из оставшихся строк
+            //Если справа два нетерминальных - в список NotEnd
+            //Еcли один терминальный - в список End  
             foreach (string ruleString in fileData)
             {
                 var simbols = ruleString.Split(new char[] { '-', '>', ' ', ',' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
@@ -67,44 +74,6 @@ namespace Language
                 }
             }
             return language;
-        }
-
-        public static List<SecondRule> GetSecondRule(string str, List<string> terminal, List<string> nonTerminal)
-        {
-            var secondRules = new List<SecondRule>();
-            var rules = str.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
-            foreach (string rule in rules)
-            {
-                var simbols = rule.Split(new char[] { '-', '>', ' ', ',' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
-                if (terminal.Contains(simbols[1]) && nonTerminal.Contains(simbols[0]))
-                {
-                    secondRules.Add(new SecondRule(simbols[0], simbols[1]));
-                }
-                else
-                {
-                    throw new Exception("Not valid format language " + rule);
-                }
-            }
-            return secondRules;
-        }
-
-        public static List<FirstRule> GetFirstRule(string str, List<string> nonTerminal)
-        {
-            var firstRules = new List<FirstRule>();
-            var rules = str.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
-            foreach (string rule in rules)
-            {
-                var simbols = rule.Split(new char[] { '-', '>', ' ', ',' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
-                if (nonTerminal.Contains(simbols[1]) && nonTerminal.Contains(simbols[0]) && nonTerminal.Contains(simbols[2]))
-                {
-                    firstRules.Add(new FirstRule(simbols[0], simbols[1], simbols[2]));
-                }
-                else
-                {
-                    throw new Exception("Not valid format language " + rule);
-                }
-            }
-            return firstRules;
         }
     }
 }
