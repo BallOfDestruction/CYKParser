@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Language
 {
+    
     //Правила формы Хомского
     public class Rule
     {

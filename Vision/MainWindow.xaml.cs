@@ -107,8 +107,9 @@ namespace Vision
         {
             CYKParser parser = new CYKParser();
             //Слово для проверки
+            AnsverBox.Document.Blocks.Clear();
             var word = StringBox.Text.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
-            System.Windows.MessageBox.Show(parser.Check(word, language));
+            AnsverBox.AppendText(parser.Check(word, language));
         }
     }
 }

@@ -8,3 +8,8 @@ C:\Users\Lui\Documents\Visual Studio 2015\CYKParser-master\Language\bin\Debug\La
 C:\Users\Lui\Documents\Visual Studio 2015\CYKParser-master\Language\obj\Debug\Language.csprojResolveAssemblyReference.cache
 C:\Users\Lui\Documents\Visual Studio 2015\CYKParser-master\Language\obj\Debug\Language.dll
 C:\Users\Lui\Documents\Visual Studio 2015\CYKParser-master\Language\obj\Debug\Language.pdb
+C:\Users\Lui\Desktop\CYKParser-master\Language\bin\Debug\Language.dll
+C:\Users\Lui\Desktop\CYKParser-master\Language\bin\Debug\Language.pdb
+C:\Users\Lui\Desktop\CYKParser-master\Language\obj\Debug\Language.csprojResolveAssemblyReference.cache
+C:\Users\Lui\Desktop\CYKParser-master\Language\obj\Debug\Language.dll
+C:\Users\Lui\Desktop\CYKParser-master\Language\obj\Debug\Language.pdb

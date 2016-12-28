@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Language;
+using System;
+using System.Text;
 
 namespace Parser
 {
@@ -8,6 +10,103 @@ namespace Parser
         private List<string>[][] matrix;
         private string[] word;
         private ChomskyNormalForm language;
+
+        private class ElPath
+        {
+            public string Name { get; set; } = "";
+
+            public bool IsEnd { get { if (J == 0) return true; else return false; } }
+
+            public int J { get; private set; } = 0;
+
+            public int I { get; private set; } = 0;
+
+            public ElPath(string Name, int i, int j)
+            {
+                this.Name = Name;
+                this.I = i;
+                this.J = j;
+            }
+        }
+
+        public string GetPath()
+        {
+            StringBuilder str = new StringBuilder();
+
+            List<ElPath> result = new List<ElPath>();
+            ElPath elPath = new ElPath(language.Start, 0, word.Length - 1);
+            result.Add(elPath);
+            int p = 0;
+            while (p <= word.Length - 1)
+            {
+                elPath = result[p];
+                //Если это символ, который переходит в терминальный - идем дальше
+                if (elPath.IsEnd)
+                {
+                    p++;
+                    continue;
+                }
+                foreach (ElPath path in result)
+                {
+                    str.Append(path.Name);
+                    str.Append(", ");
+                }
+                str.Remove(str.Length - 2, 2);
+                str.Append(" -> ");
+                int LeftI = elPath.I;
+                int RightI = elPath.I + 1;
+                int LeftJ = 0;
+                int RightJ = elPath.J - 1;
+                List<ElPath> goodPath = new List<ElPath>();
+                while (LeftJ < elPath.J)
+                {
+                    List<string> left = matrix[LeftI][LeftJ];
+                    List<string> right = matrix[RightI][RightJ];
+                    foreach (string leftElement in left)
+                    {
+                        foreach (string rightElement in right)
+                        {
+                            foreach (FirstRule rule in language.NonEndRules)
+                            {
+                                if (rule.Left.Equals(elPath.Name) && rule.RightOne.Equals(leftElement) && rule.RightTwo.Equals(rightElement))
+                                {
+                                    ElPath leftEl = new ElPath(leftElement, LeftI, LeftJ);
+                                    ElPath rightEl = new ElPath(rightElement, RightI, RightJ);
+                                    goodPath.Add(leftEl);
+                                    goodPath.Add(rightEl);
+                                }
+                            }
+                        }
+                    }
+                    LeftJ++;
+                    RightI++;
+                    RightJ--;
+                }
+                if (goodPath.Count == 0)
+                {
+                    throw new Exception("Exception: code1(70)");
+                }
+                result.RemoveAt(p);
+                result.Insert(p, goodPath[1]);
+                result.Insert(p, goodPath[0]);
+            }
+            foreach (ElPath path in result)
+            {
+                str.Append(path.Name);
+                str.Append(", ");
+            }
+            str.Remove(str.Length - 2, 2);
+            str.Append(" -> ");
+            foreach (string path in word)
+            {
+                str.Append(path);
+                str.Append(", ");
+            }
+            str.Remove(str.Length - 2, 2);
+            return str.ToString();
+        }
+
+
 
         public string Check(string[] word, ChomskyNormalForm language)
         {
@@ -36,7 +135,9 @@ namespace Parser
 
             //Если вверху матрицы есть стартовый нетерминальный символ
             if (matrix[0][word.Length - 1].Contains(language.Start))
-                return "OK";
+            {
+                return GetPath();
+            }
             else
                 return "NOT OK";
         }

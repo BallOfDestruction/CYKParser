@@ -7,59 +7,27 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="626.25" Width="972.5" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontSize="20">
     <Grid Margin="0,0,4,0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}">
-        <Button Content="Загрузить" Name="LoadButton" Height="60" Width="140" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,30,540,0" Background="#FFF1C06A"/>
-        <Button Content="Открыть" Name="OpenButton" Width="140" HorizontalAlignment="Right" Margin="0,30,705,507" Background="#FF40FB7B" Height="60"/>
-        <Button Content="Обновить" x:Name="RestoreButton" Height="60" Width="140" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,30,373,0" Background="#FFF0F058"/>
-        <TextBox Name="FilePathBox" Height="30" FontSize="20" Margin="117,141,530,426" Text="FilePath"/>
-        <TextBox Name="StartSimbol" Height="30" FontSize="20" Margin="70,22,358,19"/>
-        <TextBox Name="LeftABC" Height="30" FontSize="20" Margin="70,110,0,-69" HorizontalAlignment="Left" Width="225" RenderTransformOrigin="0.5,0.5">
-            <TextBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0.575"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBox.RenderTransform>
+        <Button Content="Загрузить" Name="LoadButton" Height="50" Width="140" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,25,541,0" Background="#FFF1C06A"/>
+        <Button Content="Открыть" Name="OpenButton" Width="140" HorizontalAlignment="Right" Background="#FF40FB7B" Margin="0,25,705,512"/>
+        <Button Content="Обновить" x:Name="RestoreButton" Height="50" Width="140" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,25,375,0" Background="#FFF0F058"/>
+        <TextBox Name="FilePathBox" FontSize="20" Margin="115,127,375,435" Text="FilePath"/>
+        <TextBox Name="StartSimbol" FontSize="20" Margin="115,204,752,353"/>
+        <TextBox Name="LeftABC" FontSize="20" Margin="117,300,0,261" HorizontalAlignment="Left" Width="226" >
         </TextBox>
-        <TextBox Name="RigthABC" Height="30" FontSize="20" Margin="489,338,248,229" Width="225"/>
-        <Label x:Name="label3" Content="Терминальные &#xD;&#xA;символы" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="758,288,0,0" Width="184" Height="61"/>
-        <Label x:Name="label6" Content="Правила вывода" HorizontalAlignment="Left" Margin="81,227,0,0" VerticalAlignment="Top"/>
-        <RichTextBox Name="LeftRule" Margin="117,425,793,-130" RenderTransformOrigin="0.5,0.5" IsUndoEnabled="True" Block.LineHeight="6">
-            <RichTextBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0.5"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </RichTextBox.RenderTransform>
+        <TextBox Name="RigthABC" FontSize="20" Margin="362,302,375,259" Width="225"/>
+        <Label x:Name="label3" Content="Терминальные &#xD;&#xA;символы" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="362,241,0,0" Width="184" Height="61"/>
+        <Label x:Name="label6" Content="Правила вывода" HorizontalAlignment="Left" Margin="117,328,0,0" VerticalAlignment="Top"/>
+        <RichTextBox Name="LeftRule" Margin="119,363,618,28" IsUndoEnabled="True" Block.LineHeight="6">
         </RichTextBox>
-        <RichTextBox Name="RightRule" Margin="362,427,348,-35" RenderTransformOrigin="0.5,0.5" Block.LineHeight="6">
-            <RichTextBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0.306"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </RichTextBox.RenderTransform>
+        <RichTextBox Name="RightRule" Margin="363,363,376,28" Block.LineHeight="6">
         </RichTextBox>
-        <Button Name="CheckButton" Content="Проверить слово" Margin="988,75,-148,338" Background="#FFD879D8"/>
-        <TextBox Name="StringBox" FontSize="20" Margin="272,230,72,337" Height="30"/>
-        <RichTextBox Name="AnsverBox" Margin="657,387,80,-50" Width="225" RenderTransformOrigin="0.5,0.5">
-            <RichTextBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="0.814"/>
-                    <RotateTransform/>
-                    <TranslateTransform X="3.111"/>
-                </TransformGroup>
-            </RichTextBox.RenderTransform>
+        <Button Name="CheckButton" Content="Проверить слово" Margin="614,174,106,363" Background="#FFD879D8"/>
+        <TextBox Name="StringBox" FontSize="20" Margin="614,127,106,435"/>
+        <RichTextBox Name="AnsverBox" Margin="615,250,105,29" Block.LineHeight="6">
         </RichTextBox>
-        <Label x:Name="label2" Content="Нетерминальные &#xD;&#xA;символы" HorizontalAlignment="Left" Margin="-223,112,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label" Content="Путь к файлу" HorizontalAlignment="Left" Margin="115,96,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label1" Content="Стартовый нетерминал" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="117,176,0,0"/>
+        <Label x:Name="label2" Content="Нетерминальные &#xD;&#xA;символы" HorizontalAlignment="Left" Margin="115,244,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label" Content="Путь к файлу" HorizontalAlignment="Left" Margin="115,90,0,0" VerticalAlignment="Top" Height="42"/>
+        <Label x:Name="label1" Content="Стартовый нетерминал" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="115,167,0,0"/>
         <Label x:Name="label4" Content="(каждый символ слова через запятую)" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="614,68,0,0" FontSize="18"/>
         <Label x:Name="label5" Content="Введите слово" HorizontalAlignment="Left" Margin="621,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="54" Width="169">
             <Label.RenderTransform>
